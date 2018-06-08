@@ -73,7 +73,6 @@ public class ConsultarClientesServlet extends HttpServlet {
             dispatcher.forward(request, response);
             return;
         }
-        System.out.println("TOKEN DO CLIENTE " + token.getTipoLogin());
         String destino = "Pages/ConsultarClientes.jsp";
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(destino);

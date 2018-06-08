@@ -31,4 +31,11 @@ Any value defined here will override the pom.xml file value but is only applicab
         <org-netbeans-modules-web-clientproject-api.js_2e_libs_2e_folder>js/libs</org-netbeans-modules-web-clientproject-api.js_2e_libs_2e_folder>
         <org-netbeans-modules-whitelist.whitelist-oracle>false</org-netbeans-modules-whitelist.whitelist-oracle>
     </properties>
+    <dependencies>
+        <dependency>
+	<groupId>jstl</groupId>
+	<artifactId>jstl</artifactId>
+	<version>1.2</version>
+  </dependency>
+    </dependencies>
 </project-shared-configuration>

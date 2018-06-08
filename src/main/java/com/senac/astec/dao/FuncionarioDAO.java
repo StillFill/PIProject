@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -65,6 +66,37 @@ public class FuncionarioDAO {
         }
         return 0;
     }
+    
+        public ArrayList<Funcionario> listarFuncionarios(int codigoempresa) throws Exception {
+        System.out.println("Iniciando listagem de cliente...");
+        ArrayList<Funcionario> lista = new ArrayList<>();
+        String query = "";
+
+        boolean vazio = true;
+
+        query = "SELECT * FROM funcionario WHERE idEmpresa=?";
+
+        try {
+            System.out.println("ID DA EMPRESA Q ESTAO PROCURANDO: " + codigoempresa);
+            PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+            preparedStatement.setInt(1, codigoempresa);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Funcionario c = new Funcionario();
+                c.setNome(rs.getString("nome"));
+                c.setIdFuncionario(rs.getInt("idFuncionario"));
+                lista.add(c);
+            }
+
+        } catch (SQLException ex) {
+            throw new Exception("Erro ao listar funcionarios", ex);
+        }
+
+        return lista;
+
+    }
 
     public void deletarFuncionario(int funcionarioId) throws Exception {
         System.out.println("Deletando funcionario de id: " + funcionarioId);
@@ -105,7 +137,7 @@ public class FuncionarioDAO {
                 funcionario.setComplemento(rs.getString(13));
                 funcionario.setBairro(rs.getString(14));
                 funcionario.setCidade(rs.getString(15));
-                funcionario.setEstado(rs.getString(16));
+                funcionario.setEstado(rs.getString("estado"));
                 funcionario.setEnabled(true);
                 funcionario.setIdEmpresa(rs.getInt("idEmpresa"));
             }
@@ -136,6 +168,7 @@ public class FuncionarioDAO {
             preparedStatement.setString(11, funcionario.getBairro());
             preparedStatement.setString(12, funcionario.getCidade());
             preparedStatement.setString(13, funcionario.getEstado());
+            System.out.println("EMPRESA: " + funcionario.getIdEmpresa());
             preparedStatement.setInt(14, funcionario.getIdEmpresa());
             preparedStatement.setInt(15, funcionario.getIdFuncionario());
 

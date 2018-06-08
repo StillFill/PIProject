@@ -59,8 +59,51 @@
                 document.getElementById('funcionarios-container').style.display = 'block';
             }
         }
+        function showImovelOptions() {
+            if (document.getElementById('imoveis-container').style.display === 'block') {
+                document.getElementById('imoveis-container').style.display = 'none';
+            } else {
+                document.getElementById('imoveis-container').style.display = 'block';
+            }
+        }
     </script>
     <style>
+        body {
+            margin: 0;
+        }
+        .consulta-header {
+            display:flex;
+            justify-content: space-around;
+            background-color: rgba(0,0,0,0.2);
+        }
+
+        .header-item {
+            padding: 1em;
+            flex: 1;
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.3);
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .data-item {
+            text-align: center;
+            padding: 0.3em 0;
+            border: 1px solid rgba(0,0,0,0.1);
+            flex: 1;
+        }
+        #remover-alerta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            padding: 1em;
+        }
+        #alerta-container {
+            display: none;
+        }
         .drop-down {
             width: 100%;
         }
@@ -75,14 +118,6 @@
             display: flex;
             background-color: white;
         }
-        .input-container {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .form-block label {
-            margin-top: 1em;
-        }
                 .drop-down {
             width: 100%;
         }
@@ -95,6 +130,14 @@
             color: white;
         }
         #funcionarios-container {
+            display: none;
+            position: absolute;
+            width: 20vw;
+            padding: 0 1em;
+            background-color: grey;
+            color: white;
+        }
+        #imoveis-container {
             display: none;
             position: absolute;
             width: 20vw;
@@ -130,15 +173,19 @@
                 <div class="drop-down">
                     <div class="navItem" onclick="showFuncionarioOptions()">Funcionarios</div>
                     <div id="funcionarios-container">
-                        <div class="drop-item">Cadastrar</div>
+                        <div onClick="pushTo('astec/cadastrar-funcionario')" class="drop-item">Cadastrar</div>
                         <div onClick="pushTo('astec/consultar-funcionarios')" class="drop-item">Consultar</div>
                     </div>
                 </div>
                 <div class="drop-down">
-                    <div class="navItem" onClick="pushTo('astec/cadastrar-cliente')">Vendas</div>
+                    <div class="navItem" onclick="showImovelOptions()">Imoveis</div>
+                    <div id="imoveis-container">
+                        <div onClick="pushTo('astec/cadastrar-imovel')" class="drop-item">Cadastrar</div>
+                        <div onClick="pushTo('astec/consultar-imoveis')" class="drop-item">Consultar</div>
+                    </div>
                 </div>
                 <div class="drop-down">
-                    <div class="navItem" onClick="pushTo('astec/cadastrar-cliente')">Relatório</div>
+                    <div class="navItem" onClick="pushTo('astec/relatorio')">Relatório</div>
                 </div>
             </div>
         <form id="form" method="post" action="http://localhost:8080/astec/cadastrar-funcionario">

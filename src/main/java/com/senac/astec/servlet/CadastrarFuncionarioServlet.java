@@ -62,12 +62,11 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
         Token token = (Token) jwt.decodeToken(tokenJwt);
         
         if (token.getTipoLogin().equals("funcionario")) {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Pages/EfetuarVenda.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Pages/consultar-imoveis.jsp");
             dispatcher.forward(request, response);
             return;
         }
 
-        System.out.println("TOKEN DO CLIENTE " + token.getTipoLogin());
         String destino = "Pages/CadastrarFuncionario.jsp";
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(destino);
@@ -129,10 +128,10 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
         newFuncionario.setCidade(cidade);
         newFuncionario.setEstado(estado);
         newFuncionario.setIdEmpresa(idEmpresa);
-
+        int idFuncionario = 0;
         try {
             ServicoFuncionario servicoFuncionario = new ServicoFuncionario();
-            servicoFuncionario.cadastrarFuncionario(newFuncionario);
+            idFuncionario = servicoFuncionario.cadastrarFuncionario(newFuncionario);
         } catch(Exception e) {
             System.out.println("ERRO AO CRIAR FUNCIONARIO: " +e);
         }
@@ -141,7 +140,7 @@ public class CadastrarFuncionarioServlet extends HttpServlet {
         loginFuncionario.setIdEmpresa(idEmpresa);
         loginFuncionario.setLogin(login);
         loginFuncionario.setSenha(senha);
-        loginFuncionario.setIdFuncionario(1);
+        loginFuncionario.setIdFuncionario(idFuncionario);
         loginFuncionario.setTipoLogin("funcionario");
         
         ServicoLogin servicoLogin = new ServicoLogin();

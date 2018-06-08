@@ -7,10 +7,11 @@ package com.senac.astec.service;
 import com.senac.astec.dao.ImovelDAO;
 import com.senac.astec.model.Imovel;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 //Classe de Servico de Imovel
 public class ServicoImovel {
-    ImovelDAO produtoDAO = new ImovelDAO();
+    ImovelDAO imovelDAO = new ImovelDAO();
     
     public void cadastrarImovel(Imovel produto) throws IOException {
         
@@ -18,7 +19,7 @@ public class ServicoImovel {
 
         try {
             //Realiza a chamada de inserção na fonte de dados
-            produtoDAO.inserirImovel(produto);
+            imovelDAO.inserirImovel(produto);
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
             //uma exceção e uma mensagem amigável a camada de visão
@@ -31,16 +32,27 @@ public class ServicoImovel {
         
 
         try {
-            produtoDAO.updateImovel(imovel);
+            imovelDAO.updateImovel(imovel);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    
+        public ArrayList<Imovel> listarImoveis(int codigoempresa) throws IOException, Exception {
+        try {
+            return imovelDAO.listarImoveis(codigoempresa);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+            return null;
         }
     }
 
 
     public  Imovel procurarImovel(int idImovel) throws IOException {
         try {
-        return produtoDAO.encontrarImovel(idImovel);
+        return imovelDAO.encontrarImovel(idImovel);
           
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
@@ -52,7 +64,7 @@ public class ServicoImovel {
 
     public void excluirImovel(int codigo) throws IOException {
         try {
-            produtoDAO.deletarImovel(codigo);
+            imovelDAO.deletarImovel(codigo);
         } catch (Exception e) {
             System.out.println("Erro " + e);
         }

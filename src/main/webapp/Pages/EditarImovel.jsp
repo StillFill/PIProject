@@ -108,6 +108,7 @@
 			</div>
 			<div class="form-button">
                             <input type="hidden" name="salvar" value="want-save">
+                            <button style='margin-right: 1em' onClick="pushTo('astec/consultar-imoveis')">Voltar</button>
                             <button type="submit">Salvar</button>
 			</div>
 		</div>

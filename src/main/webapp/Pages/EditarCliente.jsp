@@ -104,28 +104,6 @@
     <body>
         <form id="form" method="post" action="http://localhost:8080/astec/consultar-clientes">
             <input type="hidden" name="clienteId" value="${cliente.getId()}">
-            <div class="principal-navbar">
-                <div class="drop-down">
-                    <div class="navItem" onclick="showClienteOptions()">Clientes</div>
-                    <div id="clientes-container">
-                        <div class="drop-item">Cadastrar</div>
-                        <div onClick="pushTo('astec/consultar-clientes')" class="drop-item">Consultar</div>
-                    </div>
-                </div>
-                <div class="drop-down">
-                    <div class="navItem" onclick="showFuncionarioOptions()">Funcionarios</div>
-                    <div id="funcionarios-container">
-                        <div onClick="pushTo('astec/cadastrar-funcionario')" class="drop-item">Cadastrar</div>
-                        <div onClick="pushTo('astec/consultar-funcionarios')" class="drop-item">Consultar</div>
-                    </div>
-                </div>
-                <div class="drop-down">
-                    <div class="navItem" onClick="pushTo('astec/cadastrar-cliente')">Vendas</div>
-                </div>
-                <div class="drop-down">
-                    <div class="navItem" onClick="pushTo('astec/cadastrar-cliente')">Relatório</div>
-                </div>
-            </div>
             <div class="application-container">
                 <div class="form-container">
                     <form action = "CadastroClientes" method = "GET">
@@ -205,6 +183,7 @@
                         </div>
                         <div class="form-button">
                             <input type="hidden" name="salvar" value="want-save">
+                            <button style='margin-right: 1em' onClick="pushTo('astec/consultar-clientes')">Voltar</button>
                             <button type="submit" onclick="onSubmit()">Salvar</button>
                         </div>
                     </form>

@@ -105,6 +105,14 @@
             text-align: center;
             text-transform: uppercase;
         }
+        #imoveis-container {
+            display: none;
+            position: absolute;
+            width: 20vw;
+            padding: 0 1em;
+            background-color: grey;
+            color: white;
+        }
     </style>
     <script>
         function pushTo(route) {
@@ -133,32 +141,43 @@
                 document.getElementById('funcionarios-container').style.display = 'block';
             }
         }
+        function showImovelOptions() {
+            if (document.getElementById('imoveis-container').style.display === 'block') {
+                document.getElementById('imoveis-container').style.display = 'none';
+            } else {
+                document.getElementById('imoveis-container').style.display = 'block';
+            }
+        }
     </script>
     <body>
-        <form method="post" action="http://localhost:8080/astec/consultar-clientes">
-            <input type="hidden" name="clienteId" value="0" id="clienteId">
-            <div class="principal-navbar">
-                <div class="drop-down">
-                    <div class="navItem" onclick="showClienteOptions()">Clientes</div>
-                    <div id="clientes-container">
-                        <div onClick="pushTo('astec/cadastrar-cliente')" class="drop-item">Cadastrar</div>
-                        <div class="drop-item">Consultar</div>
-                    </div>
-                </div>
-                <div class="drop-down">
-                    <div class="navItem" onclick="showFuncionarioOptions()">Funcionarios</div>
-                    <div id="funcionarios-container">
-                        <div onClick="pushTo('astec/cadastrar-funcionario')" class="drop-item">Cadastrar</div>
-                        <div onClick="pushTo('astec/consultar-funcionarios')" class="drop-item">Consultar</div>
-                    </div>
-                </div>
-                <div class="drop-down">
-                    <div class="navItem" onClick="pushTo('astec/cadastrar-cliente')">Vendas</div>
-                </div>
-                <div class="drop-down">
-                    <div class="navItem" onClick="pushTo('astec/cadastrar-cliente')">Relatório</div>
+        <div class="principal-navbar">
+            <div class="drop-down">
+                <div class="navItem" onclick="showClienteOptions()">Clientes</div>
+                <div id="clientes-container">
+                    <div onClick="pushTo('astec/cadastrar-cliente')" class="drop-item">Cadastrar</div>
+                    <div class="drop-item">Consultar</div>
                 </div>
             </div>
+            <div class="drop-down">
+                <div class="navItem" onclick="showFuncionarioOptions()">Funcionarios</div>
+                <div id="funcionarios-container">
+                    <div onClick="pushTo('astec/cadastrar-funcionario')" class="drop-item">Cadastrar</div>
+                    <div onClick="pushTo('astec/consultar-funcionarios')" class="drop-item">Consultar</div>
+                </div>
+            </div>
+            <div class="drop-down">
+                <div class="navItem" onclick="showImovelOptions()">Imoveis</div>
+                <div id="imoveis-container">
+                    <div onClick="pushTo('astec/cadastrar-imovel')" class="drop-item">Cadastrar</div>
+                    <div onClick="pushTo('astec/consultar-imoveis')" class="drop-item">Consultar</div>
+                </div>
+            </div>
+            <div class="drop-down">
+                <div class="navItem" onClick="pushTo('astec/relatorio')">Relatório</div>
+            </div>
+        </div>
+        <form method="post" action="http://localhost:8080/astec/consultar-clientes">
+            <input type="hidden" name="clienteId" value="0" id="clienteId">
             <%
                 Connection connection;
                 Statement statement = null;

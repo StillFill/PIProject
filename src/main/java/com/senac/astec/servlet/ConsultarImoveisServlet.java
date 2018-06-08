@@ -13,12 +13,16 @@ import com.senac.astec.model.Funcionario;
 import com.senac.astec.model.Imovel;
 import com.senac.astec.model.Login;
 import com.senac.astec.model.Token;
+import com.senac.astec.model.Venda;
 import com.senac.astec.service.ServicoCliente;
 import com.senac.astec.service.ServicoFuncionario;
 import com.senac.astec.service.ServicoImovel;
 import com.senac.astec.service.ServicoLogin;
+import com.senac.astec.service.ServicoVenda;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -58,7 +62,7 @@ public class ConsultarImoveisServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        System.out.println("CHAMOU O GET");
         doHead(request, response);
 
         System.out.println(request.getParameter("method"));
@@ -75,7 +79,22 @@ public class ConsultarImoveisServlet extends HttpServlet {
             dispatcher.forward(request, response);
             return;
         }
-        System.out.println("TOKEN DO CLIENTE " + token.getTipoLogin());
+        ServicoCliente servicoCliente = new ServicoCliente();
+        ServicoImovel servicoImovel = new ServicoImovel();
+        ServicoFuncionario servicoFuncionario = new ServicoFuncionario();
+        try {
+            ArrayList<Cliente> clientes = servicoCliente.listarClientes(token.getIdEmpresa());
+            ArrayList<Funcionario> funcionarios = servicoFuncionario.listarFuncionarios(token.getIdEmpresa());
+            ArrayList<Imovel> imoveis = servicoImovel.listarImoveis(token.getIdEmpresa());
+            System.out.println("IMOVEIS ENCONTRADOS: " + imoveis.size());
+            session.setAttribute("clientes", clientes);
+            session.setAttribute("funcionarios", funcionarios);
+            session.setAttribute("imoveis", imoveis);
+            request.setAttribute("imoveis", imoveis);
+            request.setAttribute("clientes", clientes);
+        } catch(Exception e) {
+            System.out.println("erro ao listar clientes: " + e);
+        }
         String destino = "Pages/ConsultarImoveis.jsp";
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(destino);
@@ -182,6 +201,37 @@ public class ConsultarImoveisServlet extends HttpServlet {
                 System.out.println("ID DO IMOVEL EDITANDO " + imovel.getIdImovel());
                 request.setAttribute("imovel", imovel);
                 path = "Pages/EditarImovel.jsp";
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        } else if (request.getParameter("sale") != null) {
+            try {
+                HttpSession session = request.getSession(false);
+
+                String tokenJwt = (String) session.getAttribute("token");
+
+                CreatedTokenAbstract jwt = new CreatedToken();
+
+                Token token = (Token) jwt.decodeToken(tokenJwt);
+
+                int idEmpresa = token.getIdEmpresa();
+                int idFuncionario = Integer.parseInt(request.getParameter("funcionario"));
+                int idCliente = Integer.parseInt(request.getParameter("cliente"));
+                int idImovel = Integer.parseInt(request.getParameter("idImovel"));
+                System.out.println("ID IMOVEL: " + idImovel);
+                System.out.println("ID FUNCIONARIO: " + idFuncionario);
+                System.out.println("ID CLIENTE: " + idCliente);
+                double valorImovel = servicoImovel.procurarImovel(idImovel).getValor();
+                System.out.println("VALOR IMOVEL: " + valorImovel);
+                System.out.println("ID DA EMPRESA: " + idEmpresa);
+                Venda newVenda = new Venda();
+                newVenda.setIdCliente(idCliente);
+                newVenda.setIdEmpresa(idEmpresa);
+                newVenda.setIdFuncionario(idFuncionario);
+                newVenda.setIdImovel(idImovel);
+                newVenda.setValor(valorImovel);
+                ServicoVenda servicoVenda = new ServicoVenda();
+                servicoVenda.inserirVenda(newVenda);
             } catch (Exception e) {
                 System.out.println(e);
             }

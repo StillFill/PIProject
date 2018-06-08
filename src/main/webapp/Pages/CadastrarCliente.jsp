@@ -22,6 +22,14 @@
             $('#cep').mask('00000-000');
             $('#estado').attr('maxlength', 2);
         });
+        
+        function showImovelOptions() {
+            if (document.getElementById('imoveis-container').style.display === 'block') {
+                document.getElementById('imoveis-container').style.display = 'none';
+            } else {
+                document.getElementById('imoveis-container').style.display = 'block';
+            }
+        }
 
         function pushTo(route) {
             window.location.pathname = route;
@@ -95,14 +103,21 @@
             text-align: center;
             text-transform: uppercase;
         }
+        #imoveis-container {
+            display: none;
+            position: absolute;
+            width: 20vw;
+            padding: 0 1em;
+            background-color: grey;
+            color: white;
+        }
     </style>
     <body>
-        <form id="form" method="post" action="http://localhost:8080/astec/cadastrar-cliente">
-            <div class="principal-navbar">
+        <div class="principal-navbar">
                 <div class="drop-down">
                     <div class="navItem" onclick="showClienteOptions()">Clientes</div>
                     <div id="clientes-container">
-                        <div class="drop-item">Cadastrar</div>
+                        <div onClick="pushTo('astec/cadastrar-cliente')" class="drop-item">Cadastrar</div>
                         <div onClick="pushTo('astec/consultar-clientes')" class="drop-item">Consultar</div>
                     </div>
                 </div>
@@ -114,12 +129,17 @@
                     </div>
                 </div>
                 <div class="drop-down">
-                    <div class="navItem" onClick="pushTo('astec/cadastrar-cliente')">Vendas</div>
+                    <div class="navItem" onclick="showImovelOptions()">Imoveis</div>
+                    <div id="imoveis-container">
+                        <div onClick="pushTo('astec/cadastrar-imovel')" class="drop-item">Cadastrar</div>
+                        <div onClick="pushTo('astec/consultar-imoveis')" class="drop-item">Consultar</div>
+                    </div>
                 </div>
                 <div class="drop-down">
-                    <div class="navItem" onClick="pushTo('astec/cadastrar-cliente')">Relatório</div>
+                    <div class="navItem" onClick="pushTo('astec/relatorio')">Relatório</div>
                 </div>
             </div>
+        <form id="form" method="post" action="http://localhost:8080/astec/cadastrar-cliente">
             <div class="application-container">
                 <div class="form-container">
                     <form action = "CadastroClientes" method = "GET">

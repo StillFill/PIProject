@@ -60,6 +60,42 @@
         #alerta-container {
             display: none;
         }
+body {
+            margin: 0;
+        }
+        .consulta-header {
+            display:flex;
+            justify-content: space-around;
+            background-color: rgba(0,0,0,0.2);
+        }
+
+        .header-item {
+            padding: 1em;
+            flex: 1;
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.3);
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .data-item {
+            text-align: center;
+            padding: 0.3em 0;
+            border: 1px solid rgba(0,0,0,0.1);
+            flex: 1;
+        }
+        #remover-alerta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            padding: 1em;
+        }
+        #alerta-container {
+            display: none;
+        }
         .drop-down {
             width: 100%;
         }
@@ -86,6 +122,14 @@
             color: white;
         }
         #funcionarios-container {
+            display: none;
+            position: absolute;
+            width: 20vw;
+            padding: 0 1em;
+            background-color: grey;
+            color: white;
+        }
+        #imoveis-container {
             display: none;
             position: absolute;
             width: 20vw;
@@ -124,6 +168,13 @@
                 document.getElementById('funcionarios-container').style.display = 'block';
             }
         }
+        function showImovelOptions() {
+            if (document.getElementById('imoveis-container').style.display === 'block') {
+                document.getElementById('imoveis-container').style.display = 'none';
+            } else {
+                document.getElementById('imoveis-container').style.display = 'block';
+            }
+        }
         function pushTo(route) {
             window.location.pathname = route;
         }
@@ -141,27 +192,31 @@
         <form method="post" action="http://localhost:8080/astec/consultar-funcionarios">
             <input type="hidden" name="funcionarioId" value="0" id="funcionarioId">
             <div class="principal-navbar">
-                <div class="drop-down">
-                    <div class="navItem" onclick="showClienteOptions()">Clientes</div>
-                    <div id="clientes-container">
-                        <div onClick="pushTo('astec/cadastrar-cliente')" class="drop-item">Cadastrar</div>
-                        <div onClick="pushTo('astec/consultar-clientes')" class="drop-item">Consultar</div>
-                    </div>
-                </div>
-                <div class="drop-down">
-                    <div class="navItem" onclick="showFuncionarioOptions()">Funcionarios</div>
-                    <div id="funcionarios-container">
-                        <div onClick="pushTo('astec/cadastrar-funcionario')" class="drop-item">Cadastrar</div>
-                        <div class="drop-item">Consultar</div>
-                    </div>
-                </div>
-                <div class="drop-down">
-                    <div class="navItem" onClick="pushTo('astec/cadastrar-cliente')">Vendas</div>
-                </div>
-                <div class="drop-down">
-                    <div class="navItem" onClick="pushTo('astec/cadastrar-cliente')">Relatório</div>
+            <div class="drop-down">
+                <div class="navItem" onclick="showClienteOptions()">Clientes</div>
+                <div id="clientes-container">
+                    <div onClick="pushTo('astec/cadastrar-cliente')" class="drop-item">Cadastrar</div>
+                    <div class="drop-item">Consultar</div>
                 </div>
             </div>
+            <div class="drop-down">
+                <div class="navItem" onclick="showFuncionarioOptions()">Funcionarios</div>
+                <div id="funcionarios-container">
+                    <div onClick="pushTo('astec/cadastrar-funcionario')" class="drop-item">Cadastrar</div>
+                    <div onClick="pushTo('astec/consultar-funcionarios')" class="drop-item">Consultar</div>
+                </div>
+            </div>
+            <div class="drop-down">
+                <div class="navItem" onclick="showImovelOptions()">Imoveis</div>
+                <div id="imoveis-container">
+                    <div onClick="pushTo('astec/cadastrar-imovel')" class="drop-item">Cadastrar</div>
+                    <div onClick="pushTo('astec/consultar-imoveis')" class="drop-item">Consultar</div>
+                </div>
+            </div>
+            <div class="drop-down">
+                <div class="navItem" onClick="pushTo('astec/relatorio')">Relatório</div>
+            </div>
+        </div>
             <%
                 Connection connection;
                 Statement statement = null;

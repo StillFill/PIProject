@@ -65,7 +65,6 @@ public class CadastrarClienteServlet extends HttpServlet {
             return;
         }
 
-        System.out.println("TOKEN DO CLIENTE " + token.getTipoLogin());
         String destino = "Pages/CadastrarCliente.jsp";
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(destino);

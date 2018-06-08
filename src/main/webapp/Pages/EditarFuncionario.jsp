@@ -23,10 +23,9 @@
         });
 
         function onSubmit() {
-            console.log('aqui')
             var hasErros = false;
             for (var i = 0; i < fields.length; i++) {
-                if (fields[i].id === 'estado' && fields[14].value.length > 2) {
+                if (fields[i].id === 'estado' && fields[i].value.length > 2) {
                     console.log('estado ta zoado')
                     hasErros = true;
                 }
@@ -119,28 +118,6 @@
         }
     </style>
     <body>
-        <div class="principal-navbar">
-                <div class="drop-down">
-                    <div class="navItem" onclick="showClienteOptions()">Clientes</div>
-                    <div id="clientes-container">
-                        <div onClick="pushTo('astec/cadastrar-cliente')" class="drop-item">Cadastrar</div>
-                        <div onClick="pushTo('astec/consultar-clientes')" class="drop-item">Consultar</div>
-                    </div>
-                </div>
-                <div class="drop-down">
-                    <div class="navItem" onclick="showFuncionarioOptions()">Funcionarios</div>
-                    <div id="funcionarios-container">
-                        <div class="drop-item">Cadastrar</div>
-                        <div onClick="pushTo('astec/consultar-funcionarios')" class="drop-item">Consultar</div>
-                    </div>
-                </div>
-                <div class="drop-down">
-                    <div class="navItem" onClick="pushTo('astec/cadastrar-cliente')">Vendas</div>
-                </div>
-                <div class="drop-down">
-                    <div class="navItem" onClick="pushTo('astec/cadastrar-cliente')">Relatório</div>
-                </div>
-            </div>
         <form id="form" method="post" action="http://localhost:8080/astec/consultar-funcionarios">
             <input type="hidden" name="funcionarioId" value="${funcionario.getIdFuncionario()}">
             <div class="application-container">
@@ -177,16 +154,6 @@
                                 <input value="${funcionario.getTelefone()}" id="telefone" type="text" name='telefone'>
                             </div>
                         </div>
-                        <div class="form-block-row">
-                            <div class="input-container">
-                                <label>Login:</label>
-                                <input id="login" type="text" name='login'>
-                            </div>
-                            <div class="input-container">
-                                <label>Senha:</label>
-                                <input id="senha" type="password" name='senha'>
-                            </div>
-                        </div>
                         <div class='form-block'>
                             <label>CEP:</label>
                             <input value="${funcionario.getCep()}" id="cep" type="text" name="cep">
@@ -207,6 +174,7 @@
 
                     <div class="form-button">
                         <input type="hidden" name="salvar" value="want-save">
+                        <button style='margin-right: 1em' onClick="pushTo('astec/consultar-funcionarios')">Voltar</button>
                         <button type="submit" onclick="onSubmit()">Salvar</button>
                     </div>
                 </div>

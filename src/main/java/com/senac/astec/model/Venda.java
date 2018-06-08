@@ -5,72 +5,80 @@
  */
 package com.senac.astec.model;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class Venda {
-    private Integer codigo;
-    private Date dataCriacao;
-    private Double valorTotal;
-    private Integer codigoEmpresa;
-    private Integer codigoCliente;
+    private Integer idVenda;
+    private Timestamp dataCriacao;
+    private Double valor;
+    private Integer idCliente;
+    private Integer idImovel;
+    private Integer idFuncionario;
+    private Integer idEmpresa;
 
-    public Date getDataCriacao() {
+    public Venda() {
+        java.util.Date date = new java.util.Date();
+        java.sql.Timestamp timestamp = new java.sql.Timestamp(date.getTime());
+        this.dataCriacao = timestamp;
+    }
+    
+    public Integer getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(Integer idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+
+    public Timestamp getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(Date dataCriacao) {
+    public void setDataCriacao(Timestamp dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
-    public Integer getCodigoEmpresa() {
-        return codigoEmpresa;
+    public Integer getIdVenda() {
+        return idVenda;
     }
 
-    public void setCodigoEmpresa(Integer codigoEmpresa) {
-        this.codigoEmpresa = codigoEmpresa;
+    public void setIdVenda(Integer idVenda) {
+        this.idVenda = idVenda;
     }
 
-    public Integer getCodigoCliente() {
-        return codigoCliente;
+    public Double getValor() {
+        return valor;
     }
 
-    public void setCodigoCliente(Integer codigoCliente) {
-        this.codigoCliente = codigoCliente;
-    }
-    
-    public int getEmpresa() {
-        return codigoEmpresa;
+    public void setValor(Double valor) {
+        this.valor = valor;
     }
 
-    public void setEmpresa(int empresa) {
-        this.codigoEmpresa = empresa;
-    }
-    
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getIdCliente() {
+        return idCliente;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
     }
 
-    public int getCliente() {
-        return codigoCliente;
+    public Integer getIdImovel() {
+        return idImovel;
     }
 
-    public void setCliente(int cliente) {
-        this.codigoCliente = cliente;
+    public void setIdImovel(Integer idImovel) {
+        this.idImovel = idImovel;
     }
 
-    public Double getValorTotal() {
-        return valorTotal;
+    public Integer getIdFuncionario() {
+        return idFuncionario;
     }
 
-    public void setValorTotal(Double valorTotal) {
-        this.valorTotal = valorTotal;
+    public void setIdFuncionario(Integer idFuncionario) {
+        this.idFuncionario = idFuncionario;
     }
-
-    
+   
 }

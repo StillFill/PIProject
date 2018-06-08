@@ -8,6 +8,7 @@ import com.senac.astec.dao.ClienteDAO;
 import com.senac.astec.model.Cliente;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 //Classe de servico do cliente
 public class ServicoCliente {
@@ -44,35 +45,6 @@ public class ServicoCliente {
             return null;
         }
     }
-    
-    //Realiza a pesquisa de um cliente por nome na fonte de dados
-    public Cliente obterClientePorCpf(String cpf, int codigoempresa) throws IOException, Exception {
-        try {
-            if (cpf.length() == 0) {
-                throw new Exception("Campo cpf vazio!");
-            } else {
-                return clienteDAO.encontrarClientePorCpf(cpf, codigoempresa);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    
-    //Realiza a pesquisa de um cliente por nome na fonte de dados
-    public Cliente obterClientePorCodigo(int codigo, int codigoempresa) throws IOException, Exception {
-        try {
-          
-                return clienteDAO.encontrarClientePorIdCarrinho(codigo, codigoempresa);
-         
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-
-    //Exclui o cliente com ID informado do mock
     public void excluirCliente(int idCliente) throws IOException, Exception {
         try {
             //Solicita ao DAO a exclusão do cliente informado
@@ -84,9 +56,8 @@ public class ServicoCliente {
             
         }
     }
-    
-    //Lista produtos de determinada empresa
-    public List<Cliente> listarClientes(int codigoempresa) throws IOException, Exception {
+   
+    public ArrayList<Cliente> listarClientes(int codigoempresa) throws IOException, Exception {
         try {
             return clienteDAO.listarClientes(codigoempresa);
             

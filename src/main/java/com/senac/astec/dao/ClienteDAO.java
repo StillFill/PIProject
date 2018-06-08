@@ -162,14 +162,14 @@ public class ClienteDAO {
 
     }
 
-    public List<Cliente> listarClientes(int codigoempresa) throws Exception {
+    public ArrayList<Cliente> listarClientes(int codigoempresa) throws Exception {
         System.out.println("Iniciando listagem de cliente...");
-        List<Cliente> lista = new ArrayList<>();
+        ArrayList<Cliente> lista = new ArrayList<>();
         String query = "";
 
         boolean vazio = true;
 
-        query = "SELECT * FROM clientes WHERE codigoempresa=?";
+        query = "SELECT * FROM cliente WHERE idEmpresa=?";
 
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -178,27 +178,10 @@ public class ClienteDAO {
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Cliente cliente = new Cliente();
-
-                cliente.setId(rs.getInt("id"));
-                cliente.setNome(rs.getString("nome"));
-                cliente.setDataNasc(rs.getString("dataNasc"));
-                cliente.setRg(rs.getString("rg"));
-                cliente.setCpf(rs.getString("cpf"));
-                cliente.setSexo(rs.getString("sexo"));
-                cliente.setTelefone(rs.getString("telefone"));
-                cliente.setCelular(rs.getString("celular"));
-                cliente.setEmail(rs.getString("email"));
-                cliente.setCep(rs.getString("cep"));
-                cliente.setLogradouro(rs.getString("logradouro"));
-                cliente.setNumero(rs.getString("numero"));
-                cliente.setComplemento(rs.getString("complemento"));
-                cliente.setBairro(rs.getString("bairro"));
-                cliente.setCidade(rs.getString("cidade"));
-                cliente.setEstado(rs.getString("estado"));
-                cliente.setEnabled(true);
-                cliente.setCodigoempresa(rs.getInt("codigoempresa"));
-                lista.add(cliente);
+                Cliente c = new Cliente();
+                c.setNome(rs.getString("nome"));
+                c.setId(rs.getInt("idCliente"));
+                lista.add(c);
             }
 
         } catch (SQLException ex) {

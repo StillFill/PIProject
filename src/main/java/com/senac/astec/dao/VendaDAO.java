@@ -20,16 +20,17 @@ public class VendaDAO {
         ConexaoBanco conexaoBanco = new ConexaoBanco();    
         Connection conn = conexaoBanco.createConnection();
         
-    public Integer cadastrarVenda(Venda venda){
-                 String query = " insert into venda (codigocliente, datavenda, valortotal, codigoempresa)"
-        + " values (?, ?, ?, ?)";
+    public Integer inserirVenda(Venda venda){
+                 String query = "INSERT INTO vendas (idImovel, idFuncionario, idCliente, idEmpresa, valor, dataCriacao) values (?,?,?,?,?,?)";
         
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, venda.getCliente());
-            preparedStatement.setDate(2, (Date) venda.getDataCriacao());
-            preparedStatement.setDouble(3,venda.getValorTotal());
-            preparedStatement.setInt(4,venda.getEmpresa());
+            preparedStatement.setInt(1, venda.getIdImovel());
+            preparedStatement.setInt(2,venda.getIdFuncionario());
+            preparedStatement.setInt(3,venda.getIdCliente());
+            preparedStatement.setInt(4,venda.getIdEmpresa());
+            preparedStatement.setDouble(5,venda.getValor());
+            preparedStatement.setTimestamp(6, venda.getDataCriacao());
             
             preparedStatement.executeUpdate();            
             ResultSet  rs = preparedStatement.getGeneratedKeys();
@@ -44,52 +45,56 @@ public class VendaDAO {
         }
     }
     
-     public List<Venda> listavendas(String codigoempresa, Date datainicial, Date datafinal) throws Exception{
-         String query = "Select v.codigo as codigo, c.nome || ' ' || c.SOBRENOME as cliente, v.datavenda as datavenda,\n" +
-                        "      v.valortotal as valortoal, e.nome || ' - ' || e.cidade || ' - ' || e.tipo as nomeempresa from venda v\n" +
-                        "inner join clientes c on c.id = v.CODIGOCLIENTE \n" +
-                        "inner join empresas e on e.CODIGO = v.CODIGOEMPRESA " +
-                        " where datavenda between ? and ? ";
-         
-         List<Venda> listadevendas = new ArrayList<>();
-         
-         
-         boolean vempresas = false;
-         
-         if ((codigoempresa.equals("1"))||(codigoempresa.equals("2"))||(codigoempresa.equals("3"))){
-             vempresas = true;
-             query = query + " and v.codigoempresa = ?";
+     public ArrayList<Venda> listarVendas(int codigoempresa) throws Exception{
+         String query = "SELECT * from vendas WHERE idEmpresa=?";
+         ArrayList<Venda> listadevendas = new ArrayList<>();
+         System.out.println("CODIGO EMPRESA: " + codigoempresa);
+         if (codigoempresa == 0) {
+              query = "SELECT * from vendas";
+              try {
+                PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+                ResultSet rs = preparedStatement.executeQuery();
+
+                while (rs.next()){
+                    Venda venda = new Venda();
+                    venda.setIdVenda(rs.getInt(1));
+                    venda.setIdFuncionario(rs.getInt(2));
+                    venda.setIdCliente(rs.getInt(3));
+                    venda.setIdImovel(rs.getInt(4));
+                    venda.setIdEmpresa(rs.getInt(5));
+                    venda.setValor(rs.getDouble(6));
+                    venda.setDataCriacao(rs.getTimestamp(7));
+                    listadevendas.add(venda);
+                }
+                  System.out.println("ACHOU AQUI?: " + listadevendas.size());
+                return listadevendas;
+              }catch(SQLException ex) {
+                  System.out.println("ERRO AO LISTAR TODAS AS VENDAS: " + ex);
+              }
          }
          
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            
-            if(!vempresas){
-               preparedStatement.setDate(1, datainicial);
-               preparedStatement.setDate(2, datafinal);
-            }else{
-               preparedStatement.setDate(1, datainicial);
-               preparedStatement.setDate(2, datafinal);
-               preparedStatement.setInt(3, Integer.parseInt(codigoempresa));
-            }
-            
+
+            preparedStatement.setInt(1, codigoempresa);
             ResultSet rs = preparedStatement.executeQuery();
             
             while (rs.next()){
                 Venda venda = new Venda();
-                
-                venda.setCodigo(rs.getInt(1));
-                venda.setDataCriacao(rs.getDate(3));
-                venda.setValorTotal(rs.getDouble(4));
-                venda.setCodigoEmpresa(rs.getInt(5));
+                venda.setIdVenda(rs.getInt(1));
+                venda.setIdFuncionario(rs.getInt(2));
+                venda.setIdCliente(rs.getInt(3));
+                venda.setIdImovel(rs.getInt(4));
+                venda.setIdEmpresa(rs.getInt(5));
+                venda.setValor(rs.getDouble(6));
+                venda.setDataCriacao(rs.getTimestamp(7));
                 listadevendas.add(venda);
             }
-            
+            return listadevendas;
         } catch (SQLException ex) {
-            throw new Exception("Erro ao listar carrinho", ex);
+            System.out.println("ERRO LITANDO VENDAS: " + ex);
         }
-          
-        return listadevendas;
-       
+        return null;
     }
 }

@@ -64,14 +64,14 @@ public class ConsultarFuncionariosServlet extends HttpServlet {
         String tokenJwt = (String) session.getAttribute("token");
 
         CreatedTokenAbstract jwt = new CreatedToken();
-
+        
         Token token = (Token) jwt.decodeToken(tokenJwt);
+        System.out.println("ESSA PORRA DE EMPRESa: " + token.getIdFuncionario());
         if (token.getTipoLogin().equals("funcionario")) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("Pages/EfetuarVenda.jsp");
             dispatcher.forward(request, response);
             return;
         }
-        System.out.println("TOKEN DO CLIENTE " + token.getTipoLogin());
         String destino = "Pages/ConsultarFuncionarios.jsp";
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(destino);
@@ -139,8 +139,9 @@ public class ConsultarFuncionariosServlet extends HttpServlet {
             Funcionario funcionario;
             System.out.println("ENTROU NO EDITAR CARAIO");
             try {
-                funcionario = servicoFuncionario.procurarCliente(funcionarioId);
+                funcionario = servicoFuncionario.procurarFuncionario(funcionarioId);
                 System.out.println("FUNCIONARIO ACHADO: "+ funcionario.getNome());
+                System.out.println("ESTADO DO FUNCIONARIO:" + funcionario.getEstado());
                 request.setAttribute("funcionario", funcionario);
                 path = "Pages/EditarFuncionario.jsp";
             } catch (Exception ex) {

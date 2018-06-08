@@ -65,6 +65,37 @@ public class ImovelDAO {
             System.out.println("Erro ao salvar imovel");
         }
     }
+    
+            public ArrayList<Imovel> listarImoveis(int codigoempresa) throws Exception {
+        System.out.println("Iniciando listagem de cliente...");
+        ArrayList<Imovel> lista = new ArrayList<>();
+        String query = "";
+
+        boolean vazio = true;
+
+        query = "SELECT * FROM imovel WHERE idEmpresa=?";
+
+        try {
+            System.out.println("ID DA EMPRESA Q ESTAO PROCURANDO: " + codigoempresa);
+            PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+            preparedStatement.setInt(1, codigoempresa);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Imovel c = new Imovel();
+                c.setNome(rs.getString("nome"));
+                c.setIdImovel(rs.getInt("idImovel"));
+                lista.add(c);
+            }
+
+        } catch (SQLException ex) {
+            throw new Exception("Erro ao listar funcionarios", ex);
+        }
+
+        return lista;
+
+    }
 
     //atualiza imovel
     public Imovel updateImovel(Imovel imovel) throws Exception {
@@ -172,59 +203,6 @@ public class ImovelDAO {
                 imovel.setCodigoempresa(rs.getInt(24));
                 imovel.setEnabled(rs.getBoolean(25));
 
-                lista.add(imovel);
-            }
-
-            System.out.println("Busca efetuada com sucesso");
-        } catch (SQLException ex) {
-            System.out.println("Erro ao buscar imovel" + ex);
-        }
-        return lista;
-
-    }
-
-    //lista imovel
-    public List<Imovel> listarImoveis(int codigoempresa) { //retorna todos itens
-        List<Imovel> lista = new ArrayList<>();
-        System.out.println("Buscando imovel na base de dados...");
-        String query = "";
-
-        query = "SELECT * FROM imovel WHERE codigoempresa = '?'";
-
-        try {
-            PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
-            preparedStatement.setInt(1, codigoempresa);
-
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while (rs.next()) {
-                Imovel imovel = new Imovel();
-                imovel.setIdImovel(rs.getInt(1));
-                imovel.setNome(rs.getString(2));
-                imovel.setCep(rs.getString(3));
-                imovel.setLogradouro(rs.getString(4));
-                imovel.setNumero(rs.getString(5));
-                imovel.setComplemento(rs.getString(6));
-                imovel.setBairro(rs.getString(7));
-                imovel.setCidade(rs.getString(8));
-                imovel.setEstado(rs.getString(9));
-                imovel.setDescricao(rs.getString(10));
-                imovel.setNumDormitorios(rs.getInt(11));
-                imovel.setTamanho(rs.getDouble(12));
-                imovel.setVagas(rs.getInt(13));
-                imovel.setAndar(rs.getInt(14));
-                imovel.setMobiliado(rs.getBoolean(15));
-                imovel.setPet(rs.getBoolean(16));
-                imovel.setTipoImovel(rs.getString(17));
-                imovel.setValor(rs.getDouble(18));
-                imovel.setCondominio(rs.getDouble(19));
-                imovel.setIptu(rs.getDouble(20));
-                imovel.setSeguro(rs.getDouble(21));
-                imovel.setParcela(rs.getBoolean(22));
-                imovel.setValorEntrada(rs.getDouble(23));
-                imovel.setCodigoempresa(rs.getInt(24));
-                imovel.setEnabled(rs.getBoolean(25));
                 lista.add(imovel);
             }
 

@@ -8,6 +8,7 @@ package com.senac.astec.service;
 import com.senac.astec.dao.FuncionarioDAO;
 import com.senac.astec.model.Funcionario;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -29,6 +30,17 @@ public class ServicoFuncionario {
         return 0;
     }
     
+    public ArrayList<Funcionario> listarFuncionarios(int codigoempresa) throws IOException, Exception {
+        try {
+            return funcionarioDAO.listarFuncionarios(codigoempresa);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+            return null;
+        }
+    }
+    
     //Atualiza um cliente na fonte de dados
     public void atualizarFuncionario(Funcionario funcionario) throws IOException, Exception {
         
@@ -42,7 +54,7 @@ public class ServicoFuncionario {
         }
     }
     
-    public Funcionario procurarCliente(int id) throws IOException, Exception {
+    public Funcionario procurarFuncionario(int id) throws IOException, Exception {
         try {
             return funcionarioDAO.encontrarFuncionarioPorId(id);
         } catch (Exception e) {
