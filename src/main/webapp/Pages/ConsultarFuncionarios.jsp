@@ -189,7 +189,7 @@ body {
         }
     </script>
     <body>
-        <form method="post" action="http://localhost:8080/astec/consultar-funcionarios">
+        <form method="post" action="http://10.135.143.12:8080/astec/consultar-funcionarios">
             <input type="hidden" name="funcionarioId" value="0" id="funcionarioId">
             <div class="principal-navbar">
             <div class="drop-down">
@@ -216,6 +216,7 @@ body {
             <div class="drop-down">
                 <div class="navItem" onClick="pushTo('astec/relatorio')">Relatório</div>
             </div>
+                <button type='button' onClick="pushTo('astec/login')">Sair</button>
         </div>
             <%
                 Connection connection;

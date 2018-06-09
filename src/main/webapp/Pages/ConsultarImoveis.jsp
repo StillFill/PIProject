@@ -197,7 +197,7 @@
         }
     </script>
     <body>
-        <form method="post" action="http://localhost:8080/astec/consultar-imoveis">
+        <form method="post" action="http://10.135.143.12:8080/astec/consultar-imoveis">
             <input type="hidden" name="idImovel" value="0" id="idImovel">
             <div class="principal-navbar">
                 <div class="drop-down">
@@ -224,6 +224,7 @@
                 <div class="drop-down">
                     <div class="navItem" onClick="pushTo('astec/relatorio')">Relatório</div>
                 </div>
+                <button type='button' onClick="pushTo('astec/login')">Sair</button>
             </div>
             <%
                 Connection connection;

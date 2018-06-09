@@ -175,8 +175,9 @@
             <div class="drop-down">
                 <div class="navItem" onClick="pushTo('astec/relatorio')">Relatório</div>
             </div>
+            <button type='button' onClick="pushTo('astec/login')">Sair</button>
         </div>
-        <form method="post" action="http://localhost:8080/astec/consultar-clientes">
+        <form method="post" action="http://10.135.143.12:8080/astec/consultar-clientes">
             <input type="hidden" name="clienteId" value="0" id="clienteId">
             <%
                 Connection connection;

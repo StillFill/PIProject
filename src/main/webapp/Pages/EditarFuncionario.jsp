@@ -118,7 +118,7 @@
         }
     </style>
     <body>
-        <form id="form" method="post" action="http://localhost:8080/astec/consultar-funcionarios">
+        <form id="form" method="post" action="http://10.135.143.12:8080/astec/consultar-funcionarios">
             <input type="hidden" name="funcionarioId" value="${funcionario.getIdFuncionario()}">
             <div class="application-container">
                 <div class="form-container">

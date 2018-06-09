@@ -13,10 +13,9 @@
  }
 </script>
     <body>
-        <form method="post" action="http://localhost:8080/astec/login">
+        <form method="post" action="http://10.135.143.12:8080/astec/login">
             <div class="application-container">
                 <div class="login-block">
-                    <div class="login-title">IMOBILIÁRIA AQUAMARINE</div>
                     <div class="inputs-container">
                         <div class="form-box-container">
                             <label>Login:</label>
@@ -24,7 +23,7 @@
                         </div>
                         <div class="form-box-container">
                             <label>Senha:</label>
-                            <input type="text" name="senha">
+                            <input type="password" name="senha">
                         </div>
                         <div class="form-button">
                             <button type="submit">Entrar</button>

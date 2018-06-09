@@ -34,7 +34,7 @@
 }
 </style>
 <body>
-    <form method="post" action="http://localhost:8080/astec/consultar-imoveis">
+    <form method="post" action="http://10.135.143.12:8080/astec/consultar-imoveis">
         <input type="hidden" name="idImovel" value="${imovel.getIdImovel()}">
         <div class="application-container">
 		<div class="form-container">

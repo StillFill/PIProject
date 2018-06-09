@@ -102,7 +102,7 @@
         }
     </style>
     <body>
-        <form id="form" method="post" action="http://localhost:8080/astec/consultar-clientes">
+        <form id="form" method="post" action="http://10.135.143.12:8080/astec/consultar-clientes">
             <input type="hidden" name="clienteId" value="${cliente.getId()}">
             <div class="application-container">
                 <div class="form-container">

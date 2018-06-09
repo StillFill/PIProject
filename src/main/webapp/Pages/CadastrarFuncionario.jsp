@@ -187,8 +187,9 @@
                 <div class="drop-down">
                     <div class="navItem" onClick="pushTo('astec/relatorio')">Relatório</div>
                 </div>
+            <button type='button' onClick="pushTo('astec/login')">Sair</button>
             </div>
-        <form id="form" method="post" action="http://localhost:8080/astec/cadastrar-funcionario">
+        <form id="form" method="post" action="http://10.135.143.12:8080/astec/cadastrar-funcionario">
             <div class="application-container">
                 <div class="form-container">
                     <div class="form-header">CADASTRO DE FUNCIONÁRIOS</div>
